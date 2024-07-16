@@ -35,6 +35,10 @@ intiate connection information to the backend
 var socket = new SockJS('/websocket-example')
 stompClient = Stomp.over(socket)
 
+https://youtu.be/OK2Fn6k7pwo?si=2blXBsZV8nAi72kw
+
+
+
 
 
 
