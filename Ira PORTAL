@@ -1,0 +1,46 @@
+override websocketmessageBrokerConfig --> implement some methods
+we need to implement some methods 
+methods --> registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) 
+stompEndpointRegistry.addEndpoint("/ws")  - websocket created
+.withSockJS(); --> these library used to create websocket
+@Override 
+public void configureMessageBroker(MessageBrokerRegistry registry) {
+registry.enableSimpleBroker("/topic")  --> we give the name as a topic for the messagebroker
+we push the messages to the broker
+registry.setApplicationDestinationPrefixes("/app") --> the prefix /app whatever websockets we provided
+we have to add two annotations --> @Configuration, @EnableWebSocketMessageBrokerer
+
+@Controller
+public class userController{
+@MessageMapping("/user")
+@SendTo("/topic/user")
+public UserResponse getUser(User user) {
+return new UserResponse("hi" + user.getName());
+}}
+
+we send to the backend from the UI . and backend push the response via different topic which is using message broker 
+and it is using the protocol called stomp(text oriented messaging protocol) 
+use websockets to push the messages to the broker
+
+the user can see the messages via websockets 
+
+we created websocketconfiguration --> we created endpoint --> via which we can communicate our channel
+inside that we created a topic --> simple broker --> text oriented messages protocol --> push the messags --> 
+which is nothing but stomp --> we created destination prefix --> app 
+
+we created user controller /user  --> websocket end point  we send it as user response to the particular topic
+and that topic read by UI
+intiate connection information to the backend 
+
+var socket = new SockJS('/websocket-example')
+stompClient = Stomp.over(socket)
+
+
+
+
+
+
+
+
+
+
